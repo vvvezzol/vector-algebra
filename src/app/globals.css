@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+/* Keep KaTeX's accessible MathML layer from taking layout space. */
+.katex .katex-mathml {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.katex-display {
+  margin: 0;
+}
+
+.inline-math {
+  display: inline;
+  overflow: visible;
+}
+
+.inline-math .katex {
+  font-size: 1.05em;
+}
+
+@theme {
+  --color-paper: #f6f4ee;
+  --color-surface: #fffdf9;
+  --color-ink: #17140f;
+  --color-ink-soft: #4f4a3f;
+  --color-ink-faint: #7d7768;
+  --color-line: #e2ddd0;
+  --color-line-strong: #cfc8b6;
+  --color-accent: #1d5147;
+  --color-accent-soft: #e6efec;
+  --color-accent-ink: #0f2f29;
+  --color-warn-soft: #fbf1dd;
+  --color-warn-line: #e6d3a8;
+  --color-warn-ink: #6b4c14;
+
+  --font-sans: ui-sans-serif, system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-serif: ui-serif, Georgia, "Times New Roman", serif;
+  --font-mono: ui-monospace, "Cascadia Mono", Consolas, "Courier New", monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: #cfe3dc;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+}
+
+@media print {
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  header,
+  footer,
+  nav {
+    display: none !important;
+  }
+
+  details {
+    display: block;
+  }
+
+  details::details-content {
+    content-visibility: visible !important;
+    display: block !important;
+  }
+
+  details > summary {
+    display: none;
+  }
+
+  details > * {
+    display: block !important;
+  }
+}
