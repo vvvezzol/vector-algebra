@@ -1,0 +1,41 @@
+1:"$Sreact.fragment"
+2:"/vector-algebra/_next/static/chunks/39d__xuv-vdoq.js"
+3:I[22016,["$2"],""]
+4:I[81331,["$2"],"SiteNav"]
+5:I[23219,["$2"],"SiteClock"]
+6:I[39756,["$2"],"default"]
+7:I[37457,["$2"],"default"]
+10:"ViewportBoundary"
+11:I[97367,["$2"],"$10"]
+12:"MetadataBoundary"
+13:I[97367,["$2"],"$12"]
+14:"$Sreact.suspense"
+:HL["/vector-algebra/_next/static/chunks/3mbtazm76vq0u.css","style"]
+9:X
+c:X
+c:C
+d:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$1","c",{"children":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":"$0:t:t:d:r:props:children:1:props:children:props:children:2:props:children:props:notFound:0:1:props:style","children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":"$0:t:t:d:r:props:children:1:props:children:props:children:2:props:children:props:notFound:0:1:props:children:props:children:1:props:style","children":404}],["$","div",null,{"style":"$0:t:t:d:r:props:children:1:props:children:props:children:2:props:children:props:notFound:0:1:props:children:props:children:2:props:style","children":["$","h2",null,{"style":"$0:t:t:d:r:props:children:1:props:children:props:children:2:props:children:props:notFound:0:1:props:children:props:children:2:props:children:props:style","children":"This page could not be found."}]}]]}]}]],null,"$Le"]}],"p":"$@f","v":null,"s":"$9"}}]]
+a:[["children",{"s":"/_not-found","h":96,"d":{"r":["$","$1","c",{"children":[null,["$","$L6",null,{"parallelRouterKey":"children","template":["$","$L7",null,{}]}]]}],"p":"$@b","v":"$c","s":"$9"},"c":"$Qd"}]]
+0:{"t":{"t":{"s":"","h":80,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/vector-algebra/_next/static/chunks/3mbtazm76vq0u.css","precedence":"next"}],["$","script","script-0",{"src":"/vector-algebra/_next/static/chunks/39d__xuv-vdoq.js","async":true}]],["$","html",null,{"lang":"ru","className":"h-full","data-scroll-behavior":"smooth","children":["$","body",null,{"className":"flex min-h-full flex-col bg-paper text-ink antialiased","children":[["$","a",null,{"href":"#content","className":"sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded-md focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:text-paper","children":"К содержанию"}],["$","header",null,{"className":"sticky top-0 z-30 border-b border-line bg-paper/85 backdrop-blur","children":[["$","div",null,{"className":"mx-auto flex w-full max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:gap-4 sm:px-8 sm:py-3.5","children":[["$","$L3",null,{"href":"/","className":"group flex min-w-0 items-center gap-2.5 sm:gap-3","children":[["$","span",null,{"className":"grid h-8 w-8 shrink-0 place-items-center rounded-md bg-accent font-mono text-[10px] font-semibold text-paper shadow-[0_1px_0_rgba(23,20,15,0.08)] transition-colors group-hover:bg-accent-ink sm:h-9 sm:w-9 sm:text-xs","children":"a·b"}],["$","span",null,{"className":"min-w-0 leading-tight","children":[["$","span",null,{"className":"block truncate font-serif text-sm font-semibold tracking-tight sm:text-[15px]","children":"Векторная алгебра"}],["$","span",null,{"className":"hidden text-[11px] uppercase tracking-[0.14em] text-ink-faint sm:block","children":"Вариант 1 · задание № 2"}]]}]]}],["$","$L4",null,{}]]}],["$","$L5",null,{}]]}],["$","main",null,{"id":"content","className":"flex-1","children":["$","$L6",null,{"parallelRouterKey":"children","template":["$","$L7",null,{}],"notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]]}]}],["$","footer",null,{"className":"mt-24 border-t border-line","children":["$","div",null,{"className":"mx-auto flex w-full max-w-6xl flex-col gap-3 px-4 py-10 text-sm text-ink-faint sm:flex-row sm:items-center sm:justify-between sm:px-8","children":[["$","p",null,{"children":"Векторная алгебра · индивидуальное задание № 2 · первый вариант."}],["$","p",null,{"className":"text-xs","children":"6 задач с решениями · 8 разделов теории"}]]}]}]]}]}]]}],"p":"$@8","v":null,"s":"$9"},"c":"$Qa"},"h":{"r":["$","$1","h",{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],["$","$L11",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#f6f4ee"}]]}],["$","$L13",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$14",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Векторная алгебра — вариант 1: теория и разборы"}],["$","meta","1",{"name":"description","content":"Скалярное произведение, длины и углы, проекции, метрическая матрица, взаимный базис, координатный метод и расстояние между скрещивающимися прямыми. Восемь разделов теории и шесть задач первого варианта с пошаговыми решениями."}],"$L15","$L16","$L17","$L18","$L19","$L1a","$L1b","$L1c","$L1d","$L1e"]}]}],null]}],null]}],"p":"$@1f","v":null,"s":"$9"}},"a":"$@20","u":"$@21","b":"8XAusccr8nSzyCpmz183m"}
+22:I[97367,["$2"],"OutletBoundary"]
+24:I[27201,["$2"],"IconMark"]
+e:["$","$L22",null,{"children":["$","$14",null,{"name":"Next.MetadataOutlet","children":"$@23"}]}]
+15:["$","meta","2",{"name":"keywords","content":"векторная алгебра,скалярное произведение,взаимный базис,проекция вектора,расстояние между прямыми,координатный метод,вариант 1"}]
+16:["$","meta","3",{"property":"og:title","content":"Векторная алгебра — вариант 1: теория и разборы"}]
+17:["$","meta","4",{"property":"og:description","content":"Полный разбор первого варианта индивидуального задания № 2: скалярное произведение, взаимный базис, углы, проекции и расстояние между прямыми."}]
+18:["$","meta","5",{"property":"og:locale","content":"ru_RU"}]
+19:["$","meta","6",{"property":"og:type","content":"website"}]
+1a:["$","meta","7",{"name":"twitter:card","content":"summary"}]
+1b:["$","meta","8",{"name":"twitter:title","content":"Векторная алгебра — вариант 1: теория и разборы"}]
+1c:["$","meta","9",{"name":"twitter:description","content":"Полный разбор первого варианта индивидуального задания № 2: скалярное произведение, взаимный базис, углы, проекции и расстояние между прямыми."}]
+1d:["$","link","10",{"rel":"icon","href":"/vector-algebra/icon.svg?icon.1l3jrpjo05d-a.svg","sizes":"any","type":"image/svg+xml"}]
+1e:["$","$L24","11",{}]
+9:300
+23:null
+21:true
+9:C
+20:0
+b:"$undefined"
+8:"$undefined"
+1f:"$undefined"
+f:"$undefined"

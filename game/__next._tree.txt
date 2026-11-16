@@ -1,0 +1,5 @@
+:HL["/vector-algebra/_next/static/chunks/3mbtazm76vq0u.css","style"]
+:HC["/",""]
+2:[["children",{"s":"__PAGE__","h":160}]]
+1:[["children",{"s":"game","h":96,"c":"$Q2"}]]
+0:{"b":"8XAusccr8nSzyCpmz183m","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
