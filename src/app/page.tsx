@@ -1,53 +1,80 @@
-import Image from "next/image";
 import Link from "next/link";
 
-import { HeroFigure } from "@/components/ui/Diagrams";
-import { Badge, Container, Eyebrow, Section, MathText } from "@/components/ui/primitives";
+import { VectorFigure } from "@/components/ui/Diagrams";
+import { RichMath } from "@/components/ui/math";
+import { Badge, Container, Eyebrow, FormulaBlock, Section } from "@/components/ui/primitives";
 import { tasks } from "@/content/tasks";
 import { theory } from "@/content/theory";
-import { hasAssignmentPhoto } from "@/lib/assignment-photo";
-
-const variantCount = tasks.reduce((sum, task) => sum + task.variants.length, 0);
 
 const steps = [
   {
     n: "01",
-    title: "Разберитесь с теорией",
-    text: "Десять коротких разделов: базис, произведения векторов, матрица Грама, аффинные координаты, матрица перехода. Ровно то, что нужно для этих восьми номеров.",
+    title: "Запишите координаты",
+    text: String.raw`Переведите векторы в координаты и проверьте, что базис действительно базис: определитель из координат не должен быть нулём.`,
   },
   {
     n: "02",
-    title: "Пройдите ход решения",
-    text: "Каждый пункт разбит на шаги: что подставляем, почему можем, что получаем. Формулы вынесены отдельными блоками, чтобы не терялись в тексте.",
+    title: "Считайте скалярные произведения",
+    text: String.raw`Длины, углы, перпендикулярность и проекции — всё это следствия одного числа $\vec a\cdot\vec b$. Сначала считайте его, потом остальное.`,
   },
   {
     n: "03",
-    title: "Сверьте ответ",
-    text: "Ответ выделен зелёным, примечания — жёлтым. Если ваш ответ отличается, ищите расхождение по шагам, а не в конце.",
+    title: "Разделяйте проекции",
+    text: String.raw`Скалярная проекция — число, векторная — вектор. Перпендикулярная составляющая получается вычитанием проекции из исходного вектора.`,
+  },
+  {
+    n: "04",
+    title: "Переводите геометрию в координаты",
+    text: "В треугольнике, параллелограмме или кубе удобно поставить начало координат в вершину. Дальше середины, отношения и углы считаются по формулам.",
+  },
+];
+
+const formulas = [
+  {
+    label: "Скалярное произведение",
+    tex: String.raw`\vec a\cdot\vec b=|\vec a||\vec b|\cos\varphi=x_1x_2+y_1y_2+z_1z_2`,
+  },
+  {
+    label: "Длина и косинус",
+    tex: String.raw`|\vec a|=\sqrt{x^2+y^2+z^2},\qquad \cos\varphi=\frac{\vec a\cdot\vec b}{|\vec a||\vec b|}`,
+  },
+  {
+    label: "Проекция",
+    tex: String.raw`\operatorname{np}_{\vec a}\vec b=\frac{\vec a\cdot\vec b}{|\vec a|},\qquad \operatorname{proj}_{\vec a}\vec b=\frac{\vec a\cdot\vec b}{|\vec a|^2}\vec a`,
+  },
+  {
+    label: "Проекция на плоскость",
+    tex: String.raw`\vec a_\pi=\vec a-\frac{\vec a\cdot\vec n}{|\vec n|^2}\vec n`,
+  },
+  {
+    label: "Взаимный базис",
+    tex: String.raw`\vec a^\#\cdot\vec a=1,\quad \vec a^\#\cdot\vec b=0,\quad \vec b^\#\cdot\vec a=0,\quad \vec b^\#\cdot\vec b=1`,
+  },
+  {
+    label: "Расстояние между прямыми",
+    tex: String.raw`d=\frac{|(\vec r_2-\vec r_1)\cdot(\vec u\times\vec v)|}{|\vec u\times\vec v|}`,
   },
 ];
 
 export default function Home() {
-  const hasPhoto = hasAssignmentPhoto();
-
   return (
     <>
-      <section className="border-b border-line bg-surface/50">
+      <section className="paper-grid border-b border-line bg-surface/40">
         <Container className="grid items-center gap-10 py-12 sm:py-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14 lg:py-20">
           <div>
             <div className="flex flex-wrap items-center gap-2">
-              <Badge tone="accent">Контрольная · вариант 1</Badge>
-              <Badge>аналитическая геометрия</Badge>
+              <Badge tone="accent">Индивидуальное задание № 2</Badge>
+              <Badge>Вариант 1 · 6 задач</Badge>
             </div>
 
-            <h1 className="mt-5 max-w-2xl font-serif text-4xl leading-[1.08] font-semibold tracking-tight text-balance sm:text-5xl lg:text-[3.4rem]">
-              Теория и решения контрольной по векторной алгебре
+            <h1 className="mt-5 max-w-2xl font-serif text-4xl leading-[1.08] font-semibold tracking-tight text-balance sm:text-5xl lg:text-[3.3rem]">
+              Векторная алгебра: теория и разбор первого варианта
             </h1>
 
             <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-ink-soft">
-              Восемь заданий одного варианта: координаты в базисе, векторы в параллелограмме,
-              параметр&nbsp;t, смешанное произведение, матрица Грама, треугольник и пирамида, объём
-              и переход между системами координат. Теория — отдельно, решения — пошагово, с ответами.
+              Скалярное произведение, длины и углы, проекции, метрическая матрица, взаимный базис,
+              координатный метод и расстояние между скрещивающимися прямыми. Восемь разделов теории
+              и шесть задач с пошаговыми решениями.
             </p>
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
@@ -55,22 +82,30 @@ export default function Home() {
                 href="/solutions"
                 className="inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-5 py-3 text-sm font-semibold text-paper transition-colors hover:bg-accent-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               >
-                Смотреть решения
+                Перейти к разборам
                 <span aria-hidden>→</span>
               </Link>
               <Link
                 href="/theory"
                 className="inline-flex items-center justify-center gap-2 rounded-lg border border-line-strong bg-surface px-5 py-3 text-sm font-semibold text-ink transition-colors hover:border-accent/40 hover:text-accent-ink"
               >
-                Читать теорию
+                Сначала теория
               </Link>
             </div>
 
-            <dl className="mt-9 grid max-w-lg grid-cols-3 gap-4 border-t border-line pt-6">
+            <Link
+              href="/lesson"
+              className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:underline"
+            >
+              Непонятна задача II? Подробный разбор с нуля
+              <span aria-hidden>→</span>
+            </Link>
+
+            <dl className="mt-9 grid max-w-lg grid-cols-3 gap-4 border-t border-line pt-6 sm:[&>div+div]:border-l sm:[&>div+div]:border-line/70 sm:[&>div+div]:pl-4">
               {[
-                { value: String(tasks.length), label: "заданий" },
-                { value: String(variantCount), label: "вариантов с решением" },
+                { value: String(tasks.length), label: "задач с решением" },
                 { value: String(theory.length), label: "разделов теории" },
+                { value: "1", label: "разобранный вариант" },
               ].map((stat) => (
                 <div key={stat.label}>
                   <dt className="sr-only">{stat.label}</dt>
@@ -88,24 +123,57 @@ export default function Home() {
           </div>
 
           <figure className="rounded-2xl border border-line bg-surface p-4 shadow-[0_1px_0_rgba(23,20,15,0.04),0_18px_40px_-32px_rgba(23,20,15,0.35)] sm:p-6">
-            <HeroFigure uid="hero" />
+            <VectorFigure />
             <figcaption className="mt-3 border-t border-line pt-3 text-xs leading-relaxed text-ink-faint">
-              <MathText text="Параллелограмм ABCD из задания 2: диагональ AC = a + b, AE — проекция AC на AB, AF — биссектриса угла BAD." />
+              <RichMath text={String.raw`Вектор $\vec b$ раскладывается на проекцию вдоль $\vec a$ и перпендикулярную составляющую. Эта картинка стоит за задачами о проекциях, углах и расстояниях.`} />
             </figcaption>
           </figure>
         </Container>
       </section>
 
-      <Section id="tasks">
+      <Section>
+        <Container>
+          <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
+            <div>
+              <Eyebrow>Порядок действий</Eyebrow>
+              <h2 className="mt-2 font-serif text-3xl font-semibold tracking-tight sm:text-4xl">
+                Как разбирать задачи варианта
+              </h2>
+              <p className="mt-4 text-[15px] leading-relaxed text-ink-soft">
+                Почти все задания сводятся к двум идеям: скалярному произведению и удачному выбору
+                координат. Главное — не смешивать скалярные и векторные величины.
+              </p>
+            </div>
+
+            <ol className="relative space-y-6 before:absolute before:top-2 before:bottom-2 before:left-[1.125rem] before:w-px before:bg-line">
+              {steps.map((step) => (
+                <li key={step.n} className="grid grid-cols-[2.25rem_1fr] gap-x-4">
+                  <span className="relative grid h-9 w-9 place-items-center rounded-full border border-accent/20 bg-accent-soft font-mono text-xs text-accent-ink">
+                    {step.n}
+                  </span>
+                  <div>
+                    <h3 className="text-sm font-semibold text-ink">{step.title}</h3>
+                    <p className="mt-1 text-[15px] leading-relaxed text-ink-soft">
+                      <RichMath text={step.text} />
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </Container>
+      </Section>
+
+      <Section id="tasks" className="border-y border-line bg-surface/50">
         <Container>
           <div className="max-w-2xl">
-            <Eyebrow>Содержание</Eyebrow>
+            <Eyebrow>Задачи</Eyebrow>
             <h2 className="mt-2 font-serif text-3xl font-semibold tracking-tight sm:text-4xl">
-              Восемь заданий
+              Шесть задач первого варианта
             </h2>
             <p className="mt-3 text-[15px] leading-relaxed text-ink-soft">
-              У каждого номера — свой раздел теории и разбор в отдельной вкладке. Нажмите на
-              заголовок, чтобы перейти сразу к решению.
+              Задания I–VI по таблице вариантов. Для варианта 1 во всех шести разделах берётся
+              первый номер — он и разобран полностью.
             </p>
           </div>
 
@@ -113,18 +181,18 @@ export default function Home() {
             {tasks.map((task) => (
               <article
                 key={task.n}
-                className="group relative flex flex-col rounded-xl border border-line bg-surface p-5 transition-colors hover:border-line-strong"
+                className="group relative flex flex-col rounded-xl border border-line bg-surface p-5 transition duration-200 hover:-translate-y-0.5 hover:border-line-strong hover:shadow-[0_2px_0_rgba(23,20,15,0.03),0_16px_30px_-24px_rgba(23,20,15,0.4)]"
               >
                 <div className="flex items-start justify-between gap-4">
-                  <span className="font-mono text-xs tracking-[0.2em] text-ink-faint">
+                  <span className="grid h-8 w-8 place-items-center rounded-md border border-line bg-paper/80 font-mono text-[11px] text-ink-soft">
                     {String(task.n).padStart(2, "0")}
                   </span>
-                  <span className="font-mono text-[11px] text-ink-faint">
-                    {task.variants.map((variant) => variant.id).join(" · ")}
-                  </span>
+                  <Badge tone={task.level === "средний" ? "accent" : "neutral"}>
+                    {task.level}
+                  </Badge>
                 </div>
 
-                <h3 className="mt-3 font-serif text-xl font-semibold tracking-tight text-ink">
+                <h3 className="mt-4 font-serif text-xl font-semibold tracking-tight text-ink">
                   <Link
                     href={`/solutions#${task.slug}`}
                     className="after:absolute after:inset-0 after:rounded-xl after:content-[''] focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-offset-2 focus-visible:after:outline-accent"
@@ -133,21 +201,29 @@ export default function Home() {
                   </Link>
                 </h3>
 
-                <p className="mt-1 text-[11px] font-medium uppercase tracking-[0.12em] text-accent">
+                <p className="mt-1.5 text-[11px] font-medium uppercase tracking-[0.12em] text-accent">
                   {task.topic}
                 </p>
 
-                <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-soft"><MathText text={task.short} /></p>
+                <p className="mt-2.5 flex-1 text-sm leading-relaxed text-ink-soft">
+                  <RichMath text={task.short} />
+                </p>
 
                 <div className="mt-5 flex items-center justify-between border-t border-line pt-3">
                   <Link
                     href={`/theory#${task.theory}`}
                     className="relative z-10 text-xs font-medium text-ink-faint underline decoration-line-strong underline-offset-4 transition-colors hover:text-accent"
                   >
-                    Теория к заданию
+                    Теория к задаче
                   </Link>
-                  <span className="text-xs font-semibold text-accent opacity-70 transition-opacity group-hover:opacity-100">
-                    Решение →
+                  <span className="text-xs font-semibold text-accent">
+                    Разбор
+                    <span
+                      aria-hidden
+                      className="ml-0.5 inline-block transition-transform duration-200 group-hover:translate-x-0.5"
+                    >
+                      →
+                    </span>
                   </span>
                 </div>
               </article>
@@ -156,122 +232,82 @@ export default function Home() {
         </Container>
       </Section>
 
-      <Section id="photo" className="border-y border-line bg-surface/50">
-        <Container className="grid gap-10 lg:grid-cols-[1fr_1.05fr] lg:items-start lg:gap-14">
-          <div>
-            <Eyebrow>Источник</Eyebrow>
-            <h2 className="mt-2 font-serif text-3xl font-semibold tracking-tight sm:text-4xl">
-              Фото задания
-            </h2>
-            <p className="mt-4 text-[15px] leading-relaxed text-ink-soft">
-              Оригинальный лист с восемью номерами — чтобы сверить условия, обозначения и номера
-              вариантов. Все данные ниже набраны с этого листа и продублированы текстом: если скан
-              нечеткий, читайте условие в карточке решения.
-            </p>
-
-            <ul className="mt-6 space-y-2 text-sm text-ink-soft">
-              {[
-                "Задания 1–2 — базис и векторы в параллелограмме.",
-                "Задания 3–4 — параметр t и свойства смешанного произведения.",
-                "Задания 5–7 — метрика в базисе, треугольник, пирамида, объём.",
-                "Задание 8 — две системы координат и матрица перехода.",
-              ].map((line) => (
-                <li key={line} className="flex gap-3">
-                  <span aria-hidden className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent/60" />
-                  <span>{line}</span>
-                </li>
-              ))}
-            </ul>
-
-            <p className="mt-6 rounded-lg border border-warn-line bg-warn-soft px-4 py-3 text-sm leading-relaxed text-warn-ink">
-              Если нужного варианта нет на фото — сверьтесь с блоком «Дано» в решении: там
-              выписаны все числа, с которыми ведётся расчёт.
-            </p>
-          </div>
-
-          <figure className="rounded-2xl border border-line bg-surface p-3 shadow-[0_1px_0_rgba(23,20,15,0.04),0_18px_40px_-32px_rgba(23,20,15,0.35)] sm:p-4">
-            {hasPhoto ? (
-              <Image
-                src="/zadanie.jpg"
-                alt="Фотография листа с условиями контрольной работы: восемь заданий по векторной алгебре"
-                width={1200}
-                height={1600}
-                sizes="(max-width: 1024px) 100vw, 520px"
-                className="h-auto w-full rounded-lg border border-line"
-              />
-            ) : (
-              <div className="flex min-h-[380px] flex-col items-center justify-center gap-3 rounded-lg border border-dashed border-line-strong bg-paper/60 px-6 py-12 text-center">
-                <svg
-                  viewBox="0 0 48 48"
-                  className="h-12 w-12 text-ink-faint"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  aria-hidden="true"
-                >
-                  <rect x="9" y="5" width="30" height="38" rx="2.5" />
-                  <path d="M15 14h18M15 21h18M15 28h11" />
-                  <circle cx="31" cy="34" r="5.5" />
-                  <path d="M31 31.5v5M28.5 34h5" />
-                </svg>
-                <p className="font-serif text-lg font-semibold">Скан ещё не добавлен</p>
-                <p className="max-w-xs text-sm leading-relaxed text-ink-soft">
-                  Положите фотографию листа в папку проекта под именем
-                </p>
-                <code className="rounded border border-line bg-white/80 px-2.5 py-1 font-mono text-xs text-ink-soft">
-                  public/zadanie.jpg
-                </code>
-                <p className="max-w-xs text-xs leading-relaxed text-ink-faint">
-                  После этого страница покажет скан вместо заглушки. Условия заданий всё равно
-                  доступны в текстовом виде — в разделе решений.
-                </p>
-              </div>
-            )}
-            <figcaption className="mt-3 flex items-center justify-between gap-3 border-t border-line px-1 pt-3 text-xs text-ink-faint">
-              <span>Лист с заданиями, вариант 1</span>
-              <span className="font-mono">8 заданий</span>
-            </figcaption>
-          </figure>
-        </Container>
-      </Section>
-
-      <Section id="how">
+      <Section className="py-4 sm:py-6">
         <Container>
-          <div className="max-w-2xl">
-            <Eyebrow>Порядок работы</Eyebrow>
-            <h2 className="mt-2 font-serif text-3xl font-semibold tracking-tight sm:text-4xl">
-              Как этим пользоваться
-            </h2>
-          </div>
-
-          <ol className="mt-8 grid gap-4 md:grid-cols-3">
-            {steps.map((step) => (
-              <li key={step.n} className="rounded-xl border border-line bg-surface p-5">
-                <span className="font-mono text-xs tracking-[0.2em] text-accent/70">{step.n}</span>
-                <h3 className="mt-3 font-serif text-lg font-semibold tracking-tight">
-                  {step.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink-soft">{step.text}</p>
-              </li>
-            ))}
-          </ol>
-
-          <div className="mt-10 flex flex-col items-start justify-between gap-5 rounded-2xl border border-accent/25 bg-accent-soft px-6 py-6 sm:flex-row sm:items-center sm:px-8">
-            <div>
-              <p className="font-serif text-xl font-semibold tracking-tight text-accent-ink">
-                Нужен разбор конкретного номера?
-              </p>
-              <p className="mt-1 text-sm text-accent-ink/80">
-                Решения открываются в отдельной вкладке — можно держать теорию и разбор рядом.
+          <div className="grid gap-6 rounded-2xl border border-accent/20 bg-accent-soft/50 p-6 sm:grid-cols-[1fr_auto] sm:items-center sm:p-8">
+            <div className="max-w-2xl">
+              <Eyebrow>Тренажёр</Eyebrow>
+              <h2 className="mt-2 font-serif text-2xl font-semibold tracking-tight sm:text-3xl">
+                Проверьте себя за 8 вопросов
+              </h2>
+              <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">
+                Скалярное произведение, базис, проекции и расстояние между прямыми — с
+                объяснением после каждого ответа. Рекорд сохраняется в браузере.
               </p>
             </div>
             <Link
-              href="/solutions"
-              className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-accent px-5 py-3 text-sm font-semibold text-paper transition-colors hover:bg-accent-ink"
+              href="/game"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-paper transition-colors hover:bg-accent-ink"
             >
-              Перейти к решениям
+              Начать тренажёр
               <span aria-hidden>→</span>
             </Link>
+          </div>
+        </Container>
+      </Section>
+
+      <Section>
+        <Container>
+          <div className="max-w-2xl">
+            <Eyebrow>Шпаргалка</Eyebrow>
+            <h2 className="mt-2 font-serif text-3xl font-semibold tracking-tight sm:text-4xl">
+              Формулы, которые нужны чаще всего
+            </h2>
+            <p className="mt-3 text-[15px] leading-relaxed text-ink-soft">
+              Если задача не идёт, начните с этих формул: почти каждое действие в варианте — их
+              комбинация.
+            </p>
+          </div>
+
+          <div className="mt-8 grid gap-3 sm:grid-cols-2">
+            {formulas.map((item) => (
+              <div key={item.label} className="min-w-0 rounded-xl border border-line bg-surface p-4">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-faint">
+                  {item.label}
+                </p>
+                <FormulaBlock lines={[item.tex]} />
+              </div>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      <Section className="border-t border-line">
+        <Container>
+          <div className="flex flex-col items-start justify-between gap-6 rounded-2xl border border-accent/20 bg-accent-soft/60 px-6 py-8 sm:flex-row sm:items-center sm:px-8">
+            <div className="max-w-xl">
+              <h2 className="font-serif text-2xl font-semibold tracking-tight text-accent-ink">
+                Начните с теории, проверяйте себя по разборам
+              </h2>
+              <p className="mt-2 text-[15px] leading-relaxed text-accent-ink/80">
+                Сначала — короткие разделы с определениями и формулами. Затем — шесть задач
+                варианта с проверками и ответами.
+              </p>
+            </div>
+            <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+              <Link
+                href="/theory"
+                className="inline-flex items-center justify-center rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-paper transition-colors hover:bg-accent-ink"
+              >
+                К теории
+              </Link>
+              <Link
+                href="/solutions"
+                className="inline-flex items-center justify-center rounded-lg border border-accent/30 bg-surface px-5 py-2.5 text-sm font-semibold text-accent-ink transition-colors hover:border-accent/60"
+              >
+                К разборам
+              </Link>
+            </div>
           </div>
         </Container>
       </Section>

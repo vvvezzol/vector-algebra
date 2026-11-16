@@ -25,12 +25,35 @@
   font-size: 1.05em;
 }
 
+/* Faint graph-paper texture for the hero, matching the mathematical subject. */
+.paper-grid {
+  background-image:
+    linear-gradient(to right, rgba(23, 20, 15, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(23, 20, 15, 0.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+  background-position: -1px -1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 @theme {
   --color-paper: #f6f4ee;
   --color-surface: #fffdf9;
   --color-ink: #17140f;
   --color-ink-soft: #4f4a3f;
-  --color-ink-faint: #7d7768;
+  --color-ink-faint: #6f695b;
   --color-line: #e2ddd0;
   --color-line-strong: #cfc8b6;
   --color-accent: #1d5147;

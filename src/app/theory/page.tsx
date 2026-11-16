@@ -1,15 +1,22 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { Callout, Container, Eyebrow, FormulaBlock, MathText } from "@/components/ui/primitives";
 import { List } from "@/components/ui/RichText";
+import { RichMath } from "@/components/ui/math";
+import {
+  Callout,
+  Container,
+  Eyebrow,
+  FormulaBlock,
+  Prose,
+} from "@/components/ui/primitives";
 import { tasks } from "@/content/tasks";
 import { theory, type Block } from "@/content/theory";
 
 export const metadata: Metadata = {
   title: "Теория",
   description:
-    "Десять разделов теории к контрольной по векторной алгебре: базис и координаты, скалярное, векторное и смешанное произведение, ориентация, матрица Грама, аффинные координаты, декартовы координаты, матрица перехода.",
+    "Восемь разделов теории: векторы и координаты, скалярное произведение, длина и угол, проекции, метрическая матрица, взаимный базис, координатный метод и расстояние между скрещивающимися прямыми.",
 };
 
 function TheoryBlock({ block }: { block: Block }) {
@@ -18,11 +25,11 @@ function TheoryBlock({ block }: { block: Block }) {
   if (block.kind === "note")
     return (
       <Callout tone="note" label="Важно">
-        <MathText text={block.text} />
+        <Prose text={block.text} />
       </Callout>
     );
 
-  return <p className="text-[15px] leading-relaxed text-ink-soft"><MathText text={block.text} /></p>;
+  return <Prose text={block.text} />;
 }
 
 export default function TheoryPage() {
@@ -31,21 +38,21 @@ export default function TheoryPage() {
       <header className="max-w-3xl">
         <Eyebrow>Теория</Eyebrow>
         <h1 className="mt-2 font-serif text-4xl leading-tight font-semibold tracking-tight sm:text-5xl">
-          Минимум теории для этих восьми заданий
+          Минимум теории для варианта 1
         </h1>
         <p className="mt-4 text-[17px] leading-relaxed text-ink-soft">
-          Без полного курса: только определения, формулы и признаки, которые действительно
-          используются в решениях. Каждый раздел связан с конкретными номерами контрольной.
+          Восемь разделов с определениями и формулами, которые используются в шести задачах:
+          скалярное произведение, длины и углы, проекции, метрическая матрица, взаимный базис,
+          координатный метод и расстояние между прямыми.
         </p>
         <p className="mt-4 text-sm leading-relaxed text-ink-faint">
-          Формулы отображаются аккуратной математической вёрсткой. Обозначения: (a, b, c) —
-          смешанное произведение, [a, b] — векторное, a·b — скалярное.
+          <RichMath text={String.raw`Обозначения: $\vec a^\#$ — вектор взаимного базиса, $\operatorname{np}_{\vec a}\vec b$ — скалярная проекция. Формулы свёрстаны как в учебнике; длинные выражения можно прокрутить по горизонтали.`} />
         </p>
       </header>
 
       <nav
         aria-label="Разделы теории"
-        className="mt-8 flex gap-2 overflow-x-auto pb-2 lg:hidden"
+        className="mt-8 flex gap-2 overflow-x-auto pb-2 [scrollbar-width:none] lg:hidden [&::-webkit-scrollbar]:hidden"
       >
         {theory.map((section, index) => (
           <a
@@ -56,7 +63,7 @@ export default function TheoryPage() {
             <span className="mr-1.5 font-mono text-[10px] text-ink-faint">
               {String(index + 1).padStart(2, "0")}
             </span>
-            {section.title.split(":")[0]}
+            {section.title}
           </a>
         ))}
       </nav>
@@ -86,12 +93,12 @@ export default function TheoryPage() {
               href="/solutions"
               className="mt-6 inline-flex items-center gap-2 text-xs font-medium text-accent hover:underline"
             >
-              Перейти к решениям <span aria-hidden>→</span>
+              Перейти к разборам <span aria-hidden>→</span>
             </Link>
           </div>
         </aside>
 
-        <div className="min-w-0 space-y-12">
+        <div className="min-w-0 space-y-10">
           {theory.map((section, index) => {
             const related = tasks.filter((task) => task.theory === section.id);
 
@@ -99,21 +106,19 @@ export default function TheoryPage() {
               <section
                 key={section.id}
                 id={section.id}
-                className="scroll-mt-24 border-t border-line pt-8 first:border-t-0 first:pt-0"
+                className={`scroll-mt-24 ${index > 0 ? "border-t border-line/70 pt-10" : ""}`}
               >
-                <div className="flex items-start gap-3">
-                  <span className="mt-1.5 font-mono text-xs tracking-[0.2em] text-ink-faint">
+                <div className="flex items-baseline gap-3">
+                  <span className="font-mono text-xs text-ink-faint">
                     {String(index + 1).padStart(2, "0")}
                   </span>
-                  <div>
-                    <h2 className="font-serif text-2xl font-semibold tracking-tight text-balance sm:text-[1.75rem]">
-                      {section.title}
-                    </h2>
-                    <p className="mt-2 border-l-2 border-accent/30 pl-3 text-sm leading-relaxed text-ink-soft">
-                      {section.lead}
-                    </p>
-                  </div>
+                  <h2 className="font-serif text-2xl font-semibold tracking-tight sm:text-[1.7rem]">
+                    {section.title}
+                  </h2>
                 </div>
+                <p className="mt-2 border-l border-line pl-3 text-sm leading-relaxed text-ink-faint sm:pl-4">
+                  {section.lead}
+                </p>
 
                 <div className="mt-5 space-y-4">
                   {section.blocks.map((block, blockIndex) => (
@@ -122,20 +127,18 @@ export default function TheoryPage() {
                 </div>
 
                 {related.length > 0 ? (
-                  <div className="mt-5 flex flex-wrap items-center gap-2">
-                    <span className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">
-                      Применяется в:
-                    </span>
+                  <p className="mt-5 flex flex-wrap items-center gap-2 text-[11px] tracking-wide text-ink-faint uppercase">
+                    Применяется в:
                     {related.map((task) => (
                       <Link
                         key={task.n}
                         href={`/solutions#${task.slug}`}
-                        className="rounded-full border border-line bg-surface px-2.5 py-1 text-xs text-ink-soft transition-colors hover:border-accent/40 hover:text-accent-ink"
+                        className="rounded-full border border-line bg-surface px-2.5 py-1 text-[11px] font-medium tracking-normal text-ink-soft normal-case transition-colors hover:border-accent/40 hover:text-accent"
                       >
-                        Задание {task.n} · {task.title}
+                        Задача {task.n} · {task.title}
                       </Link>
                     ))}
-                  </div>
+                  </p>
                 ) : null}
               </section>
             );

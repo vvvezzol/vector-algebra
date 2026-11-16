@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Векторная алгебра — вариант 1
 
-## Getting Started
+Сайт по индивидуальному заданию № 2: краткая теория и полный разбор первого варианта —
+шесть задач со скалярным произведением, взаимным базисом, проекциями, координатным методом
+и расстоянием между скрещивающимися прямыми.
 
-First, run the development server:
+**Опубликованная версия:** <https://vvvezzol.github.io/vector-algebra/>
+
+## Разделы
+
+- `/` — обзор варианта, порядок решения и шпаргалка с формулами;
+- `/lesson` — подробный разбор задачи II с нуля: базис, метрическая матрица, взаимный базис,
+  системы уравнений для `a#` и `b#`, проверка и типичные ошибки;
+- `/theory` — восемь разделов теории: векторы и координаты, скалярное произведение,
+  длина и угол, проекции, метрическая матрица, взаимный базис, координатный метод,
+  расстояние между прямыми;
+- `/solutions` — шесть задач варианта 1 с пошаговыми решениями, проверками и ответами;
+- `/game` — тренажёр: восемь вопросов с объяснениями, счётом и локальным рекордом.
+
+## Задачи варианта 1
+
+| № | Задание | Ответ |
+| --- | --- | --- |
+| I | Скалярное произведение, длины, угол, проекция | $\vec a\cdot\vec b=-8$, $\cos\varphi=-8/21$, $\operatorname{np}_{\vec a^\perp}(\vec a-\vec b)=\sqrt{377}/7$ |
+| II | Взаимный базис | $\vec a^\#=(-15;-77/2)$, $\vec b^\#=(8;41/2)$ |
+| III | Угол в треугольнике | $\cos\angle MCN=2/\sqrt5$ |
+| IV | Проекция на плоскость | $(4;4;4)$, длина $4\sqrt3$ |
+| V | Перпендикуляр в прямоугольном треугольнике | $CN=1/2$ |
+| VI | Расстояние между прямыми в кубе | $32/\sqrt{89}$ |
+
+## Стек
+
+Next.js 16 (App Router), React 19, Tailwind CSS 4 и KaTeX для формул.
+
+## Запуск
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Сайт откроется на [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Проверки
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npm run build
+```
 
-## Learn More
+## Содержание
 
-To learn more about Next.js, take a look at the following resources:
+Задачи и решения лежат в `src/content/tasks.ts`, теория — в `src/content/theory.ts`,
+вопросы тренажёра — в `src/content/quiz.ts`. Формулы записываются в LaTeX:
+`$...$` внутри текста и `$$...$$` для отдельных выражений.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## GitHub Pages
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Сайт собран как статический экспорт. Для публикации под адресом
+`https://<user>.github.io/vector-algebra/` сборка использует префикс пути:
 
-## Deploy on Vercel
+```bash
+GITHUB_PAGES=true npm run build
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Готовая папка `out` публикуется в ветку `gh-pages`, откуда GitHub Pages её раздаёт.

@@ -3,65 +3,67 @@ import Link from "next/link";
 
 import { PrintButton } from "@/components/solutions/PrintButton";
 import { SolutionCard } from "@/components/solutions/SolutionCard";
-import { TaskDiagram } from "@/components/ui/Diagrams";
-import { Container, Eyebrow, MathText } from "@/components/ui/primitives";
+import { RichMath } from "@/components/ui/math";
+import { Badge, Container, Eyebrow } from "@/components/ui/primitives";
 import { tasks } from "@/content/tasks";
 import { theoryById } from "@/content/theory";
 
 export const metadata: Metadata = {
-  title: "Решения",
+  title: "Разборы",
   description:
-    "Пошаговые решения восьми заданий по векторной алгебре: координаты в базисе, векторы в параллелограмме, параметр t, смешанное произведение, матрица Грама, треугольник и пирамида, объём, две системы координат.",
+    "Шесть задач первого варианта индивидуального задания № 2: скалярное произведение, взаимный базис, угол в треугольнике, проекция на плоскость, перпендикуляр в прямоугольном треугольнике и расстояние между скрещивающимися прямыми.",
 };
 
 const legend = [
-  { label: "Дано", className: "border-line-strong bg-paper" },
-  { label: "Ответ", className: "border-accent/25 bg-accent-soft" },
-  { label: "Примечание", className: "border-warn-line bg-warn-soft" },
+  { label: "Условие", className: "border-line-strong bg-line/60" },
+  { label: "Ответ", className: "border-accent/50 bg-accent/20" },
+  { label: "Примечание", className: "border-warn-line bg-warn-line/60" },
 ];
 
 export default function SolutionsPage() {
   return (
     <Container className="py-10 sm:py-14">
       <header className="max-w-3xl print:hidden">
-        <Eyebrow>Решения</Eyebrow>
+        <Eyebrow>Разборы · вариант 1</Eyebrow>
         <h1 className="mt-2 font-serif text-4xl leading-tight font-semibold tracking-tight sm:text-5xl">
-          Разбор всех восьми заданий
+          Шесть задач с пошаговым решением
         </h1>
         <p className="mt-4 text-[17px] leading-relaxed text-ink-soft">
-          Порядок шагов такой, как его ждут на проверке: сначала обоснование, потом вычисления,
-          затем ответ. Все числа взяты из условий на фото; ответы перепроверены подстановкой.
+          Полный разбор первого варианта: от скалярного произведения и взаимного базиса до
+          координатного метода и расстояния между прямыми в кубе. В каждом разборе — условие,
+          ход решения, проверка и ответ.
         </p>
 
         <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">
           {legend.map((item) => (
             <span key={item.label} className="inline-flex items-center gap-2 text-xs text-ink-faint">
-              <span className={`h-3 w-3 rounded-sm border ${item.className}`} aria-hidden />
+              <span className={`h-3.5 w-3.5 rounded-[3px] border ${item.className}`} aria-hidden />
               {item.label}
             </span>
           ))}
-          <Link href="/theory" className="text-xs font-medium text-accent hover:underline">
-            Теория к заданиям →
+          <span className="hidden text-xs text-ink-faint sm:inline">·</span>
+          <Link
+            href="/theory"
+            className="w-full text-xs font-medium text-accent hover:underline sm:w-auto"
+          >
+            Теория к задачам →
           </Link>
         </div>
 
         <div className="mt-6 flex flex-wrap items-center gap-3">
           <PrintButton />
           <p className="text-xs leading-relaxed text-ink-faint">
-            При печати все свёрнутые блоки раскрываются автоматически.
+            Перед печатью все свёрнутые разборы раскроются автоматически.
           </p>
         </div>
       </header>
 
-      <nav
-        aria-label="Задания"
-        className="mt-8 flex gap-2 overflow-x-auto pb-2 lg:hidden print:hidden"
-      >
+      <nav aria-label="Задачи" className="mt-8 flex gap-2 overflow-x-auto pb-2 lg:hidden print:hidden">
         {tasks.map((task) => (
           <a
             key={task.n}
             href={`#${task.slug}`}
-            className="shrink-0 rounded-full border border-line bg-surface px-3 py-1.5 text-xs whitespace-nowrap text-ink-soft"
+            className="shrink-0 rounded-full border border-line bg-surface px-3 py-1.5 text-xs whitespace-nowrap text-ink-soft transition-colors hover:border-line-strong"
           >
             <span className="mr-1.5 font-mono text-[10px] text-ink-faint">
               {String(task.n).padStart(2, "0")}
@@ -75,7 +77,7 @@ export default function SolutionsPage() {
         <aside className="hidden lg:block print:hidden">
           <div className="sticky top-24">
             <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-faint">
-              Задания
+              Задачи
             </p>
             <ol className="mt-3 space-y-1">
               {tasks.map((task) => (
@@ -107,14 +109,13 @@ export default function SolutionsPage() {
               >
                 <div className="flex flex-wrap items-start justify-between gap-4">
                   <div className="flex min-w-0 gap-4">
-                    <span
-                      aria-hidden
-                      className="mt-0.5 hidden font-serif text-3xl leading-none font-semibold text-line-strong select-none sm:block"
-                    >
-                      {String(task.n).padStart(2, "0")}
-                    </span>
                     <div className="min-w-0">
-                      <Eyebrow>Задание {task.n}</Eyebrow>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <Eyebrow>Задача {task.n}</Eyebrow>
+                        <Badge tone={task.level === "средний" ? "accent" : "neutral"}>
+                          {task.level}
+                        </Badge>
+                      </div>
                       <h2 className="mt-1 font-serif text-2xl font-semibold tracking-tight text-balance sm:text-3xl">
                         {task.title}
                       </h2>
@@ -122,7 +123,7 @@ export default function SolutionsPage() {
                         {task.topic}
                       </p>
                       <p className="mt-2 max-w-xl text-sm leading-relaxed text-ink-soft">
-                        <MathText text={task.short} />
+                        <RichMath text={task.short} />
                       </p>
                       {theory ? (
                         <Link
@@ -132,24 +133,21 @@ export default function SolutionsPage() {
                           Теория: {theory.title}
                         </Link>
                       ) : null}
+                      {task.n === 2 ? (
+                        <Link
+                          href="/lesson"
+                          className="mt-2 ml-0 inline-flex items-center gap-1.5 text-xs font-semibold text-accent hover:underline sm:ml-4"
+                        >
+                          Подробный разбор с нуля
+                          <span aria-hidden>→</span>
+                        </Link>
+                      ) : null}
                     </div>
                   </div>
-
-                  {task.diagram ? (
-                    <div className="hidden shrink-0 rounded-xl border border-line bg-surface p-2 sm:block">
-                      <TaskDiagram kind={task.diagram} uid={`task-${task.n}`} className="h-20 w-20" />
-                    </div>
-                  ) : null}
                 </div>
 
-                <div className="mt-6 space-y-3">
-                  {task.variants.map((variant, index) => (
-                    <SolutionCard
-                      key={variant.id}
-                      variant={variant}
-                      defaultOpen={index === 0}
-                    />
-                  ))}
+                <div className="mt-6">
+                  <SolutionCard task={task} defaultOpen={task.n === 1} />
                 </div>
               </section>
             );

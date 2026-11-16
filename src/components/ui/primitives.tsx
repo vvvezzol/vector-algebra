@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
-import katex from "katex";
+
+import { RichMath, Tex } from "./math";
 
 type Tag = "div" | "section" | "main" | "article" | "aside";
 
@@ -31,11 +32,17 @@ export function Eyebrow({ children }: { children: ReactNode }) {
   );
 }
 
-export function Badge({ children, tone = "neutral" }: { children: ReactNode; tone?: "neutral" | "accent" }) {
+export function Badge({
+  children,
+  tone = "neutral",
+}: {
+  children: ReactNode;
+  tone?: "neutral" | "accent";
+}) {
   const styles =
     tone === "accent"
-      ? "bg-accent-soft text-accent-ink border-accent/20"
-      : "bg-white/70 text-ink-soft border-line";
+      ? "bg-accent-soft/80 text-accent-ink border-accent/25"
+      : "bg-paper/80 text-ink-soft border-line";
   return (
     <span
       className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-medium tracking-wide ${styles}`}
@@ -56,111 +63,33 @@ export function Callout({
 }) {
   const styles =
     tone === "answer"
-      ? "border-accent/25 bg-accent-soft/70 text-accent-ink"
-      : "border-warn-line bg-warn-soft text-warn-ink";
+      ? "border-accent/25 border-l-[3px] border-l-accent/60 bg-accent-soft/70 text-accent-ink"
+      : "border-warn-line border-l-[3px] border-l-warn-ink/35 bg-warn-soft text-warn-ink";
   return (
     <div className={`rounded-lg border px-4 py-3 ${styles}`}>
-      <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.14em] opacity-75">{label}</p>
+      <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.14em]">{label}</p>
       <div className="text-[15px] leading-relaxed">{children}</div>
     </div>
   );
 }
 
+/** A boxed system of display formulas. Each string is raw LaTeX. */
 export function FormulaBlock({ lines }: { lines: string[] }) {
-  const formulas = lines.map((line) => toLatex(line));
-
   return (
-    <div className="my-2 overflow-x-auto rounded-md border border-line bg-white/60 px-3 py-2.5 text-ink-soft sm:px-4">
-      <div className="min-w-max space-y-1.5 text-[15px] sm:text-base" aria-label={lines.join("; ")}>
-        {formulas.map((formula, index) => (
-          <div
-            key={`${formula}-${index}`}
-            className="[&_.katex]:whitespace-nowrap"
-            dangerouslySetInnerHTML={{
-              __html: katex.renderToString(formula, {
-                displayMode: true,
-                throwOnError: false,
-                strict: false,
-              }),
-            }}
-          />
+    <div className="my-2 max-w-full overflow-x-auto rounded-lg border border-line/80 bg-white/55 px-3 py-2.5 text-ink-soft sm:px-4">
+      <div className="min-w-max space-y-1.5 text-[15px] sm:text-base">
+        {lines.map((line, index) => (
+          <Tex key={`${line}-${index}`} tex={line} display />
         ))}
       </div>
     </div>
   );
 }
 
-/** Typeset mathematical fragments without turning surrounding Russian prose into math. */
-export function MathText({ text }: { text: string }) {
-  const parts = text.split(/([А-Яа-яЁё]+(?:[ -][А-Яа-яЁё]+)*|—)/g);
-
+export function Prose({ text, className = "" }: { text: string; className?: string }) {
   return (
-    <>
-      {parts.map((part, index) => {
-        if (/[А-Яа-яЁё]/.test(part) || !/[A-Za-zΑ-Ωα-ω=√∠⊥∥]/.test(part) || /(?:src|public)\//.test(part)) {
-          return part;
-        }
-
-        const [, before, expression, after] = part.match(/^(\s*)([\s\S]*?)([\s.:!?]*)$/)!;
-        if (!expression) return part;
-
-        return (
-          <span key={index}>
-            {before}
-            <span
-              className="inline-math"
-              dangerouslySetInnerHTML={{
-                __html: katex.renderToString(toLatex(expression), {
-                  displayMode: false,
-                  throwOnError: false,
-                  strict: false,
-                  trust: false,
-                }),
-              }}
-            />
-            {after}
-          </span>
-        );
-      })}
-    </>
+    <p className={`text-[15px] leading-relaxed text-ink-soft ${className}`}>
+      <RichMath text={text} />
+    </p>
   );
-}
-
-/** Convert the compact notation used in the content files to readable LaTeX. */
-function toLatex(value: string) {
-  let formula = value
-    .replaceAll("·", " \\cdot ")
-    .replaceAll("×", " \\times ")
-    .replaceAll("∥", " \\parallel ")
-    .replaceAll("⊥", " \\perp ")
-    .replaceAll("≠", " \\ne ")
-    .replaceAll("≈", " \\approx ")
-    .replaceAll("≥", " \\ge ")
-    .replaceAll("≤", " \\le ")
-    .replaceAll("⇒", " \\Rightarrow ")
-    .replaceAll("⇔", " \\Longleftrightarrow ")
-    .replaceAll("∞", "\\infty")
-    .replaceAll("½", "\\frac{1}{2}")
-    .replaceAll("₁", "_{1}")
-    .replaceAll("₂", "_{2}")
-    .replaceAll("₃", "_{3}");
-
-  formula = formula
-    .replaceAll("−", "-")
-    .replaceAll("₀", "_{0}")
-    .replaceAll("⁻¹", "^{-1}")
-    .replaceAll("²", "^{2}")
-    .replaceAll("³", "^{3}")
-    .replaceAll("∈", " \\in ")
-    .replaceAll("∪", " \\cup ")
-    .replaceAll("∠", "\\angle ")
-    .replaceAll("°", "^{\\circ}");
-
-  formula = formula.replace(/√([A-Za-zА-Яа-я0-9]+)/g, "\\sqrt{$1}");
-  formula = formula.replace(/\b(-?\d+)\/(\d+)\b/g, "\\frac{$1}{$2}");
-  formula = formula.replace(/\^([0-9]+)/g, "^{$1}");
-  formula = formula.replace(/\b(sin|cos|det)\b/g, "\\$1");
-  formula = formula.replace(/\s*[А-Яа-яЁё]+(?:\s+[А-Яа-яЁё]+)*\s*/g, (text) => `\\text{${text}}`);
-
-  return formula;
 }
